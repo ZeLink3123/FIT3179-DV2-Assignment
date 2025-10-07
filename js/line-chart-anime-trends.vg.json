@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Daily Anime Search Interest Index in 2025.",
+  "width": 800,
+  "height": 400,
+
+  "data": {
+    "url": "data/anime_search_trends_2025.csv",
+    "format": {"type": "csv"}
+  },
+
+  "title": {
+    "text": "Daily Anime Search Interest in 2025",
+    "fontSize": 20,
+    "font": "Comic Sans MS",
+    "anchor": "start"
+  },
+
+  "mark": {
+    "type": "line",
+    "color": "#8000ff",
+    "strokeWidth": 2,
+    "point": {"filled": true, "fill": "#4d0099", "size": 30}
+  },
+
+  "encoding": {
+    "x": {
+      "field": "Day",
+      "type": "temporal",
+      "title": "Date",
+      "axis": {
+        "format": "%b",
+        "tickCount": "month",
+        "labelAngle": 0,
+        "labelFont": "Comic Sans MS"
+      }
+    },
+    "y": {
+      "field": "Anime Search Index",
+      "type": "quantitative",
+      "title": "Search Interest (0–100)",
+      "scale": {"domain": [50, 100]},
+      "axis": {"labelFont": "Comic Sans MS"}
+    },
+    "tooltip": [
+      {"field": "Day", "type": "temporal", "title": "Date", "format": "%b %d"},
+      {"field": "Anime Search Index", "type": "quantitative", "title": "Search Index"}
+    ]
+  },
+
+  "config": {
+    "background": "white",
+    "font": "Comic Sans MS"
+  }
+}

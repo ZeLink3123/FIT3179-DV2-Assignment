@@ -9,3 +9,8 @@ document.getElementById("map-selection").addEventListener("change", function() {
     vegaEmbed("#world-map", map_spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+  let trends_spec = "js/line-chart-anime-trends.vg.json";
+  vegaEmbed("#trends-chart", trends_spec, {mode: "vega-lite"});
+});
+
