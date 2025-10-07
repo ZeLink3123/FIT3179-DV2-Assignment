@@ -74,13 +74,13 @@
         "y": {
           "field": "Anime Search Index",
           "type": "quantitative",
-          "title": "Search Interest (0–100)",
+          "title": "Search Interest (50–100)",
           "scale": {"domain": [50, 100]},
           "axis": {"labelFont": "Comic Sans MS"}
         },
         "tooltip": [
           {"field": "Day", "type": "temporal", "title": "Date", "format": "%b %d"},
-          {"field": "Anime Search Index", "type": "quantitative", "title": "Search Index"}
+          {"field": "Anime Search Index", "type": "quantitative", "title": "Anime Search Popularity (Index)"}
         ]
       }
     },
@@ -103,7 +103,7 @@
       "encoding": {
         "x": {"field": "Day", "type": "temporal"},
         "y": {"field": "Anime Search Index", "type": "quantitative"},
-        "text": {"value": "Peak Interest (100)"}
+        "text": {"value": "Peak Interest on March 30"}
       }
     },
     {
