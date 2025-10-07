@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Daily Anime Search Interest Index in 2025, with month filtering.",
+  "description": "Daily Anime Search Interest Index in 2025, with month filtering and annotation on the highest point.",
   "width": 800,
   "height": 400,
 
@@ -52,36 +52,78 @@
     }
   ],
 
-  "mark": {
-    "type": "line",
-    "color": "#8000ff",
-    "strokeWidth": 2,
-    "point": {"filled": true, "fill": "#4d0099", "size": 30}
-  },
-
-  "encoding": {
-    "x": {
-      "field": "Day",
-      "type": "temporal",
-      "title": "Date",
-      "axis": {
-        "format": "%b %d",
-        "labelAngle": 0,
-        "labelFont": "Comic Sans MS"
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "color": "#8000ff",
+        "strokeWidth": 2,
+        "point": {"filled": true, "fill": "#4d0099", "size": 30}
+      },
+      "encoding": {
+        "x": {
+          "field": "Day",
+          "type": "temporal",
+          "title": "Date",
+          "axis": {
+            "format": "%b %d",
+            "labelAngle": 0,
+            "labelFont": "Comic Sans MS"
+          }
+        },
+        "y": {
+          "field": "Anime Search Index",
+          "type": "quantitative",
+          "title": "Search Interest (0–100)",
+          "scale": {"domain": [50, 100]},
+          "axis": {"labelFont": "Comic Sans MS"}
+        },
+        "tooltip": [
+          {"field": "Day", "type": "temporal", "title": "Date", "format": "%b %d"},
+          {"field": "Anime Search Index", "type": "quantitative", "title": "Search Index"}
+        ]
       }
     },
-    "y": {
-      "field": "Anime Search Index",
-      "type": "quantitative",
-      "title": "Search Interest (0–100)",
-      "scale": {"domain": [50, 100]},
-      "axis": {"labelFont": "Comic Sans MS"}
+    {
+      "data": {
+        "values": [
+          {"Day": "2025-03-30", "Anime Search Index": 100}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 10,
+        "dy": 0,
+        "font": "Comic Sans MS",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "color": "black"
+      },
+      "encoding": {
+        "x": {"field": "Day", "type": "temporal"},
+        "y": {"field": "Anime Search Index", "type": "quantitative"},
+        "text": {"value": "Peak Interest (100)"}
+      }
     },
-    "tooltip": [
-      {"field": "Day", "type": "temporal", "title": "Date", "format": "%b %d"},
-      {"field": "Anime Search Index", "type": "quantitative", "title": "Search Index"}
-    ]
-  },
+    {
+      "data": {
+        "values": [
+          {"Day": "2025-03-30", "Anime Search Index": 100}
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 120,
+        "color": "#ff4dd2"
+      },
+      "encoding": {
+        "x": {"field": "Day", "type": "temporal"},
+        "y": {"field": "Anime Search Index", "type": "quantitative"}
+      }
+    }
+  ],
 
   "config": {
     "background": "white",
