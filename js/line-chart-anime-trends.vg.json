@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Daily Anime Search Interest Index in 2025.",
+  "description": "Daily Anime Search Interest Index in 2025, with month filtering.",
   "width": 800,
   "height": 400,
 
@@ -16,6 +16,42 @@
     "anchor": "start"
   },
 
+  "params": [
+    {
+      "name": "monthSelect",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All",
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
+        ],
+        "name": "Select Month: "
+      }
+    }
+  ],
+
+  "transform": [
+    {
+      "calculate": "month(toDate(datum.Day))",
+      "as": "monthNumber"
+    },
+    {
+      "filter": "monthSelect == 'All' || (monthSelect == 'January' && datum.monthNumber == 0) || (monthSelect == 'February' && datum.monthNumber == 1) || (monthSelect == 'March' && datum.monthNumber == 2) || (monthSelect == 'April' && datum.monthNumber == 3) || (monthSelect == 'May' && datum.monthNumber == 4) || (monthSelect == 'June' && datum.monthNumber == 5) || (monthSelect == 'July' && datum.monthNumber == 6) || (monthSelect == 'August' && datum.monthNumber == 7) || (monthSelect == 'September' && datum.monthNumber == 8) || (monthSelect == 'October' && datum.monthNumber == 9) || (monthSelect == 'November' && datum.monthNumber == 10) || (monthSelect == 'December' && datum.monthNumber == 11)"
+    }
+  ],
+
   "mark": {
     "type": "line",
     "color": "#8000ff",
@@ -29,8 +65,7 @@
       "type": "temporal",
       "title": "Date",
       "axis": {
-        "format": "%b",
-        "tickCount": "month",
+        "format": "%b %d",
         "labelAngle": 0,
         "labelFont": "Comic Sans MS"
       }
