@@ -5,7 +5,7 @@
   },
   "hconcat": [
     {
-      "title": "Average Age of Anime Viewers by Country",
+      "title": "Average Age of Anime Viewers by Country (Click on a country)",
       "width": 800,
       "height": 400,
       "data": {
@@ -67,6 +67,12 @@
           "data": {
             "url": "data/anime-viewers-data.csv"
           },
+          "params": [
+            {
+              "name": "country_click",
+              "select": {"type": "point", "fields": ["Country_Standardized"]}
+            }
+          ],
           "transform": [
             {
               "calculate": "datum.Country == 'USA' ? 'United States of America' : datum.Country == 'UK' ? 'United Kingdom' : datum.Country",
@@ -103,7 +109,8 @@
           "mark": {
             "type": "geoshape",
             "stroke": "white",
-            "strokeWidth": 0.5
+            "strokeWidth": 0.5,
+            "cursor": "pointer"
           },
           "encoding": {
             "color": {
@@ -118,6 +125,21 @@
                 "title": "Average Age"
               }
             },
+            "opacity": {
+              "condition": {
+                "param": "country_click",
+                "value": 1
+              },
+              "value": 0.1
+            },
+            "strokeWidth": {
+              "condition": {
+                "param": "country_click",
+                "value": 2,
+                "empty": false
+              },
+              "value": 0.1
+            },
             "tooltip": [
               {"field": "Country_Standardized", "type": "nominal", "title": "Country"},
               {"field": "avg_age", "type": "quantitative", "title": "Average Age", "format": ".1f"}
@@ -127,13 +149,22 @@
       ]
     },
     {
-      "title": "Gender Distribution of Anime Viewers",
+      "title": "Gender Distribution of Anime Viewers by Country",
       "width": 800,
       "height": 400,
       "data": {
         "url": "data/anime-viewers-data.csv"
       },
       "transform": [
+        {
+          "calculate": "datum.Country == 'USA' ? 'United States of America' : datum.Country == 'UK' ? 'United Kingdom' : datum.Country",
+          "as": "Country_Standardized"
+        },
+        {
+          "filter": {
+            "param": "country_click"
+          }
+        },
         {
           "aggregate": [
             {
