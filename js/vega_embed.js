@@ -31,3 +31,8 @@ document.addEventListener("DOMContentLoaded", function() {
   let trends_spec = "js/map-pie-chart.vg.json";
   vegaEmbed("#age-gender-charts", trends_spec, {mode: "vega-lite"});
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  let trends_spec = "js/au-map-chloropleth-anime-popularity-2025.vg.json";
+  vegaEmbed("#au-map-anime-popularity-charts", trends_spec, {mode: "vega-lite"});
+});

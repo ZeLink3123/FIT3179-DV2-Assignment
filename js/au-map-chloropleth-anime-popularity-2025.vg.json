@@ -1,0 +1,203 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Anime Search Interest Across Australia (2025)",
+    "fontSize": 24,
+    "fontWeight": "bold",
+    "anchor": "start",
+    "color": "black",
+    "font": "Gravitas One"
+  },
+  "width": 800,
+  "height": 600,
+  "params": [
+    {
+      "name": "minSearchInterest",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "name": "Min Search Interest Index: "
+      }
+    }
+  ],
+  "data": {
+    "url": "js/ne_10m_admin_1_states_provinces.topojson",
+    "format": {
+      "type": "topojson",
+      "feature": "ne_10m_admin_1_states_provinces"
+    }
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [133, -27],
+    "scale": 800
+  },
+  "layer": [
+    {
+      "transform": [
+        {
+          "calculate": "datum.properties.name + ' has search interest index of: 0'",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightgray",
+        "stroke": "white"
+      },
+      "encoding": {
+        "tooltip": {"field": "note"},
+        "color": {"value": "lightgray"}
+      }
+    },
+    {
+      "name": "anime_popularity_by_state",
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "data/au-anime-popularity-2025.csv"
+            },
+            "key": "Region",
+            "fields": ["Anime: (2025)", "Population"]
+          }
+        },
+        {
+          "calculate": "(datum['Anime: (2025)'] / 100) * 50000000 / datum['Population']",
+          "as": "estimated_per_capita_searches_2025"
+        },
+        {
+          "filter": "datum['Anime: (2025)'] != null"
+        },
+        {
+          "filter": "datum['Anime: (2025)'] >= minSearchInterest"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white"
+      },
+      "encoding": {
+        "color": {
+          "field": "Anime: (2025)",
+          "title": "Anime Search Interest Index (2025)",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [70, 80, 90, 95],
+            "range": ["#f2e5ff", "#d9b3ff", "#b366ff", "#8000ff", "#4d0099"]
+          },
+          "legend": {
+            "orient": "right",
+            "offset": 50
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.name",
+            "type": "nominal",
+            "title": "State/Territory"
+          },
+          {
+            "field": "estimated_per_capita_searches_2025",
+            "type": "quantitative",
+            "format": ".0f",
+            "title": "Estimated Number of Anime Searches Per Capita (2025)"
+          },
+          {
+            "field": "Anime: (2025)",
+            "type": "quantitative",
+            "format": ".1f",
+            "title": "Relative Anime Search Interest Index (2025)"
+          },
+          {
+            "field": "Population",
+            "type": "quantitative",
+            "format": ",",
+            "title": "Population"
+          }
+        ]
+      }
+    },
+    {
+      "name": "wa_label_box",
+      "transform": [
+        {
+          "calculate": "datum.latitude + 6.6",
+          "as": "latitude_offset"
+        },
+        {
+          "calculate": "datum.longitude - 7.2",
+          "as": "longitude_offset"
+        }
+      ],
+      "data": {
+        "values": [
+          {
+            "state": "Western Australia",
+            "longitude": 120,
+            "latitude": -26,
+            "note": "WA: Highest Search Interest"
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "fill": "rgba(255, 255, 255, 0.7)",
+        "width": 190,
+        "height": 20
+      },
+      "encoding": {
+        "longitude": {"field": "longitude_offset"},
+        "latitude": {"field": "latitude_offset"}
+      }
+    },
+    {
+      "name": "wa_label",
+      "data": {
+        "values": [
+          {
+            "state": "Western Australia",
+            "longitude": 120,
+            "latitude": -26,
+            "note": "WA: Highest Search Interest"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "color": "black",
+        "fontWeight": "bold",
+        "dy": -100,
+        "dx": -100
+      },
+      "encoding": {
+        "longitude": {"field": "longitude"},
+        "latitude": {"field": "latitude"},
+        "text": {"field": "note"}
+      }
+    }
+  ],
+  "config": {
+    "axis": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS"
+    },
+    "legend": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS"
+    },
+    "text": {
+      "font": "Comic Sans MS"
+    },
+    "header": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS"
+    }
+  }
+}
