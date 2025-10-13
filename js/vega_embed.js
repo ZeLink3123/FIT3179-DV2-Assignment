@@ -36,3 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
   let trends_spec = "js/au-map-chloropleth-anime-popularity-2025.vg.json";
   vegaEmbed("#au-map-anime-popularity-charts", trends_spec, {mode: "vega-lite"});
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  let trends_spec = "js/line-chart-au-anime-trends.vg.json";
+  vegaEmbed("#au-anime-trends-chart", trends_spec, {mode: "vega-lite"});
+});

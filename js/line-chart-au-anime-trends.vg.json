@@ -1,0 +1,140 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Daily Anime Search Interest Index in 2025, with month filtering and annotation on the highest point.",
+  "width": 800,
+  "height": 400,
+
+  "data": {
+    "url": "data/au-anime-trends-2025.csv",
+    "format": {
+      "type": "csv",
+      "parse": {"Day": "date:'%Y-%m-%d'"}
+    }
+  },
+
+  "title": {
+    "text": "Daily Australia Anime Search Interest in 2025",
+    "fontSize": 20,
+    "font": "Comic Sans MS",
+    "anchor": "start"
+  },
+
+  "params": [
+    {
+      "name": "monthSelect",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All",
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
+        ],
+        "name": "Select Month: "
+      }
+    }
+  ],
+
+  "transform": [
+    {
+      "calculate": "month(datum.Day)",
+      "as": "monthNumber"
+    },
+    {
+      "filter": "monthSelect == 'All' || (monthSelect == 'January' && datum.monthNumber == 0) || (monthSelect == 'February' && datum.monthNumber == 1) || (monthSelect == 'March' && datum.monthNumber == 2) || (monthSelect == 'April' && datum.monthNumber == 3) || (monthSelect == 'May' && datum.monthNumber == 4) || (monthSelect == 'June' && datum.monthNumber == 5) || (monthSelect == 'July' && datum.monthNumber == 6) || (monthSelect == 'August' && datum.monthNumber == 7) || (monthSelect == 'September' && datum.monthNumber == 8) || (monthSelect == 'October' && datum.monthNumber == 9) || (monthSelect == 'November' && datum.monthNumber == 10) || (monthSelect == 'December' && datum.monthNumber == 11)"
+    }
+  ],
+
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "color": "#8000ff",
+        "strokeWidth": 2,
+        "point": {"filled": true, "fill": "#4d0099", "size": 30}
+      },
+      "encoding": {
+        "x": {
+          "field": "Day",
+          "type": "temporal",
+          "title": "Date",
+          "axis": {
+            "format": "%b %d",
+            "labelAngle": 0,
+            "labelFont": "Comic Sans MS"
+          }
+        },
+        "y": {
+          "field": "Anime Search Index",
+          "type": "quantitative",
+          "title": "Search Interest (70–100)",
+          "scale": {"domain": [70, 100]},
+          "axis": {"labelFont": "Comic Sans MS"}
+        },
+        "tooltip": [
+          {"field": "Day", "type": "temporal", "title": "Date", "format": "%b %d"},
+          {"field": "Anime Search Index", "type": "quantitative", "title": "Anime Search Popularity (Index)"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"Day": "2025-02-02", "Anime Search Index": 85}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "dx": 60,
+        "dy": -100,
+        "font": "Comic Sans MS",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "color": "black"
+      },
+      "encoding": {
+        "x": {"field": "Day", "type": "temporal"},
+        "y": {"field": "Anime Search Index", "type": "quantitative"},
+        "text": {"value": "Rapid Drop: 100 → 73"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"Day": "2025-02-02", "Anime Search Index": 85}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "dx": 135,
+        "dy": -85,
+        "font": "Comic Sans MS",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "color": "black"
+      },
+      "encoding": {
+        "x": {"field": "Day", "type": "temporal"},
+        "y": {"field": "Anime Search Index", "type": "quantitative"},
+        "text": {"value": "Interest in Anime fell sharply after January"}
+      }
+    }
+  ],
+
+  "config": {
+    "background": "white",
+    "font": "Comic Sans MS"
+  }
+}
