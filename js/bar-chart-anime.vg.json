@@ -4,7 +4,7 @@
   "data": {
     "url": "data/anime-genres.csv"
   },
-  "height": {"step": 13},
+  "height": {"step": 20},
   "width": 650,
 
   "transform": [
@@ -32,7 +32,8 @@
   "layer": [
     {
       "mark": {
-        "type": "bar"
+        "type": "rule",
+        "strokeWidth": 2
       },
       "encoding": {
         "y": {
@@ -45,6 +46,39 @@
           "field": "Percentage",
           "type": "quantitative",
           "title": "Percentage of Total Animes (%)"
+        },
+        "x2": {
+          "datum": 0
+        },
+        "color": {
+          "condition": {
+            "test": "datum.AdjustedGenre === 'Comedy'",
+            "value": "#ff7f0e"
+          },
+          "value": "#b3b3b3"
+        },
+        "tooltip": [
+          {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
+          {"field": "GenreCount", "type": "quantitative", "title": "Number of Animes"},
+          {"field": "Percentage", "type": "quantitative", "format": ".2f", "title": "Percentage of Animes (%)"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 100
+      },
+      "encoding": {
+        "y": {
+          "field": "AdjustedGenre",
+          "type": "nominal",
+          "sort": {"field": "Percentage", "order": "descending"}
+        },
+        "x": {
+          "field": "Percentage",
+          "type": "quantitative"
         },
         "color": {
           "condition": {
