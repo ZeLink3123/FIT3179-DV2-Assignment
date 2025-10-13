@@ -17,3 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
   vegaEmbed("#trends-chart", trends_spec, {mode: "vega-lite"});
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+  let trends_spec = "js/bar-chart-anime.vg.json";
+  vegaEmbed("#genre-chart", trends_spec, {mode: "vega-lite"});
+});

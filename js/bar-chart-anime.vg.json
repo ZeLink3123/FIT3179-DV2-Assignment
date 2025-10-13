@@ -1,0 +1,103 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Distribution of Anime Genres with highlight and annotation.",
+  "data": {
+    "url": "data/anime-genres.csv"
+  },
+  "height": {"step": 13},
+  "width": 650,
+
+  "transform": [
+    {
+      "calculate": "datum.genre === '' ? 'Others' : datum.genre",
+      "as": "AdjustedGenre"
+    },
+    {
+      "aggregate": [
+        {"op": "count", "as": "GenreCount"}
+      ],
+      "groupby": ["AdjustedGenre"]
+    },
+    {
+      "joinaggregate": [
+        {"op": "sum", "field": "GenreCount", "as": "TotalAnimes"}
+      ]
+    },
+    {
+      "calculate": "datum.GenreCount / datum.TotalAnimes * 100",
+      "as": "Percentage"
+    }
+  ],
+
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "y": {
+          "field": "AdjustedGenre",
+          "type": "nominal",
+          "title": "Anime Genre",
+          "sort": {"field": "Percentage", "order": "descending"}
+        },
+        "x": {
+          "field": "Percentage",
+          "type": "quantitative",
+          "title": "Percentage of Total Animes (%)"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.AdjustedGenre === 'Comedy'",
+            "value": "#ff7f0e"
+          },
+          "value": "#b3b3b3"
+        },
+        "tooltip": [
+          {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
+          {"field": "GenreCount", "type": "quantitative", "title": "Number of Animes"},
+          {"field": "Percentage", "type": "quantitative", "format": ".2f", "title": "Percentage of Animes (%)"}
+        ]
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "dy": -60,
+        "dx": -200
+      },
+      "encoding": {
+        "x": {"aggregate": "max", "field": "Percentage", "type": "quantitative"},
+        "text": {"value": "The Comedy genre dominates with the highest percentage of all existing anime,"},
+        "color": {"value": "black"}
+      },
+      "transform": [
+        {"filter": {"field": "AdjustedGenre", "oneOf": ["Comedy"]}}
+      ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "dy": -40,
+        "dx": -200
+      },
+      "encoding": {
+        "x": {"aggregate": "max", "field": "Percentage", "type": "quantitative"},
+        "text": {"value": "showcasing its widespread popularity across the medium."},
+        "color": {"value": "black"}
+      },
+      "transform": [
+        {"filter": {"field": "AdjustedGenre", "oneOf": ["Comedy"]}}
+      ]
+    }
+  ]
+}
