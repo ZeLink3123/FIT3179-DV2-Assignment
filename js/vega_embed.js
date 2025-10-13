@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  let trends_spec = "js/bar-chart-anime.vg.json";
+  let trends_spec = "js/anime-genre-popularity.vg.json";
   vegaEmbed("#genre-chart", trends_spec, {mode: "vega-lite"});
 });
 

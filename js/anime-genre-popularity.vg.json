@@ -1,0 +1,289 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "data/anime-genres.csv"
+  },
+  "vconcat": [
+    {
+      "hconcat": [
+        {
+          "title": "Top 30 Anime and Their Genres",
+          "width": {"step": 20},
+          "height": {"step": 20},
+          "transform": [
+            {
+              "window": [{"op": "dense_rank", "as": "rank"}],
+              "sort": [{"field": "score", "order": "descending"}]
+            },
+            {
+              "filter": "datum.rank <= 30"
+            },
+            {
+              "calculate": "datum.genre === '' ? 'Others' : datum.genre",
+              "as": "AdjustedGenre"
+            }
+          ],
+          "mark": {
+            "type": "rect",
+            "tooltip": true,
+            "stroke": "white",
+            "strokeWidth": 1
+          },
+          "encoding": {
+            "x": {
+              "field": "title",
+              "type": "nominal",
+              "title": "Anime Title",
+              "sort": {"field": "score", "order": "descending"},
+              "axis": {
+                "labelAngle": -45,
+                "labelAlign": "right",
+                "labelLimit": 150
+              }
+            },
+            "y": {
+              "field": "AdjustedGenre",
+              "type": "nominal",
+              "title": "Genre"
+            },
+            "color": {
+              "value": "#4A90E2"
+            },
+            "tooltip": [
+              {"field": "title", "type": "nominal", "title": "Anime"},
+              {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
+              {"field": "score", "type": "quantitative", "title": "Score", "format": ".2f"}
+            ]
+          }
+        },
+        {
+          "title": "Distribution of Anime Genres",
+          "width": 650,
+          "height": {"step": 20},
+          "transform": [
+            {
+              "calculate": "datum.genre === '' ? 'Others' : datum.genre",
+              "as": "AdjustedGenre"
+            },
+            {
+              "aggregate": [
+                {"op": "count", "as": "GenreCount"}
+              ],
+              "groupby": ["AdjustedGenre"]
+            },
+            {
+              "joinaggregate": [
+                {"op": "sum", "field": "GenreCount", "as": "TotalAnimes"}
+              ]
+            },
+            {
+              "calculate": "datum.GenreCount / datum.TotalAnimes * 100",
+              "as": "Percentage"
+            }
+          ],
+          "layer": [
+            {
+              "mark": {
+                "type": "rule",
+                "strokeWidth": 2
+              },
+              "encoding": {
+                "y": {
+                  "field": "AdjustedGenre",
+                  "type": "nominal",
+                  "title": "Anime Genre",
+                  "sort": {"field": "Percentage", "order": "descending"}
+                },
+                "x": {
+                  "field": "Percentage",
+                  "type": "quantitative",
+                  "title": "Percentage of Total Animes (%)"
+                },
+                "x2": {
+                  "datum": 0
+                },
+                "color": {
+                  "condition": {
+                    "test": "datum.AdjustedGenre === 'Comedy'",
+                    "value": "#ff7f0e"
+                  },
+                  "value": "#b3b3b3"
+                },
+                "tooltip": [
+                  {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
+                  {"field": "GenreCount", "type": "quantitative", "title": "Number of Animes"},
+                  {"field": "Percentage", "type": "quantitative", "format": ".2f", "title": "Percentage of Animes (%)"}
+                ]
+              }
+            },
+            {
+              "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 100
+              },
+              "encoding": {
+                "y": {
+                  "field": "AdjustedGenre",
+                  "type": "nominal",
+                  "sort": {"field": "Percentage", "order": "descending"}
+                },
+                "x": {
+                  "field": "Percentage",
+                  "type": "quantitative"
+                },
+                "color": {
+                  "condition": {
+                    "test": "datum.AdjustedGenre === 'Comedy'",
+                    "value": "#ff7f0e"
+                  },
+                  "value": "#b3b3b3"
+                },
+                "tooltip": [
+                  {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
+                  {"field": "GenreCount", "type": "quantitative", "title": "Number of Animes"},
+                  {"field": "Percentage", "type": "quantitative", "format": ".2f", "title": "Percentage of Animes (%)"}
+                ]
+              }
+            },
+            {
+              "mark": {
+                "type": "text",
+                "align": "center",
+                "baseline": "middle",
+                "fontSize": 12,
+                "fontStyle": "italic",
+                "dy": -60,
+                "dx": -200
+              },
+              "encoding": {
+                "x": {"aggregate": "max", "field": "Percentage", "type": "quantitative"},
+                "text": {"value": "The Comedy genre dominates with the highest percentage of all existing anime,"},
+                "color": {"value": "black"}
+              },
+              "transform": [
+                {"filter": {"field": "AdjustedGenre", "oneOf": ["Comedy"]}}
+              ]
+            },
+            {
+              "mark": {
+                "type": "text",
+                "align": "center",
+                "baseline": "middle",
+                "fontSize": 12,
+                "fontStyle": "italic",
+                "dy": -40,
+                "dx": -200
+              },
+              "encoding": {
+                "x": {"aggregate": "max", "field": "Percentage", "type": "quantitative"},
+                "text": {"value": "showcasing its widespread popularity across the medium."},
+                "color": {"value": "black"}
+              },
+              "transform": [
+                {"filter": {"field": "AdjustedGenre", "oneOf": ["Comedy"]}}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+    "title": "Top 10 Highest Rated Anime",
+    "width": 1600,
+    "height": 300,
+    "data": {"url": "data/anime-genres.csv"},
+    "transform": [
+        {
+        "aggregate": [
+            {"op": "max", "field": "score", "as": "max_score"}
+        ],
+        "groupby": ["uid", "title"]
+        },
+        {
+        "window": [{"op": "dense_rank", "as": "rank"}],
+        "sort": [{"field": "max_score", "order": "descending"}]
+        },
+        {
+        "filter": "datum.rank <= 10"
+        }
+    ],
+    "layer": [
+        {
+        "mark": {
+            "type": "bar",
+            "color": "#4A90E2"
+        },
+        "encoding": {
+            "x": {
+            "field": "max_score",
+            "type": "quantitative",
+            "title": "Rating Score",
+            "scale": {"domain": [8.9, 9.25]}
+            },
+            "x2": {
+            "datum": 8.9
+            },
+            "y": {
+            "field": "title",
+            "type": "nominal",
+            "title": "Anime Title",
+            "sort": {"field": "max_score", "order": "descending"}
+            },
+            "tooltip": [
+            {"field": "title", "type": "nominal", "title": "Anime Title"},
+            {"field": "max_score", "type": "quantitative", "title": "Score", "format": ".2f"}
+            ]
+        }
+        },
+        {
+        "data": {"url": "data/anime-genres.csv"},
+        "transform": [
+            {
+            "aggregate": [
+                {"op": "max", "field": "score", "as": "max_score"}
+            ],
+            "groupby": ["uid", "title"]
+            },
+            {
+            "window": [{"op": "dense_rank", "as": "rank"}],
+            "sort": [{"field": "max_score", "order": "descending"}]
+            },
+            {
+            "filter": "datum.rank <= 10"
+            },
+            {
+            "lookup": "uid",
+            "from": {
+                "data": {"url": "data/anime-genres.csv"},
+                "key": "uid",
+                "fields": ["genre"]
+            }
+            }
+        ],
+        "mark": {
+            "type": "point",
+            "opacity": 0,
+            "size": 1000
+        },
+        "encoding": {
+            "x": {
+            "field": "max_score",
+            "type": "quantitative"
+            },
+            "y": {
+            "field": "title",
+            "type": "nominal",
+            "sort": {"field": "max_score", "order": "descending"}
+            },
+            "tooltip": [
+            {"field": "title", "type": "nominal", "title": "Anime Title"},
+            {"field": "max_score", "type": "quantitative", "title": "Score", "format": ".2f"},
+            {"field": "genre", "type": "nominal", "title": "Genre"}
+            ]
+        }
+        }
+    ]
+    }
+  ]
+}
