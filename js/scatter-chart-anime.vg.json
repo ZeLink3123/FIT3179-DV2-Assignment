@@ -1,105 +1,131 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 500,
-    "height": 500,
-    "data": {
-      "url": "data/anime-genres.csv"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Anime Popularity: Ratings vs Popularity",
+    "fontSize": 24,
+    "fontWeight": "bold",
+    "color": "black",
+    "font": "Gravitas One"
+  },
+  "width": 600,
+  "height": 500,
+  "data": {
+    "url": "data/anime-genres.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.genre === '' ? 'Others' : datum.genre",
+      "as": "AdjustedGenre"
     },
-    "transform": [
+    {
+      "filter": "datum.score > 0"
+    },
+    {
+      "filter": "datum.ranked > 0"
+    }
+  ],
+  "layer": [
+    {
+      "params": [{
+        "name": "genreSelect",
+        "value": {"AdjustedGenre": "Action"},
+        "select": {"type": "point", "fields": ["AdjustedGenre"]},
+        "bind": "legend"
+      }],
+      "transform": [
         {
-            "calculate": "datum.genre === '' ? 'Others' : datum.genre",
-            "as": "AdjustedGenre"
-        },
-        {
-            "filter": "datum.AdjustedGenre == 'Comedy' || datum.AdjustedGenre == 'Action'|| datum.AdjustedGenre == 'Fantasy' || datum.AdjustedGenre == 'Adventure'|| datum.AdjustedGenre == 'Romance'|| datum.AdjustedGenre == 'Slice of Life'|| datum.AdjustedGenre == 'Sports'|| datum.AdjustedGenre == 'Drama'|| datum.AdjustedGenre == 'Sci-Fi' || datum.AdjustedGenre == 'Music'"
-        },
-        {
-            "filter": "datum.score > 0"
-        },
-        {
-            "filter": "datum.ranked > 0"
-        }
-      ],
-    "layer": [
-      {
-        "params": [{
-          "name": "genreSelect",
-          "select": {"type": "point", "fields": ["AdjustedGenre"]},
-          "bind": "legend"
-        }],
-        "mark": "circle",
-        "encoding": {
-          "x": {
-            "field": "popularity",
-            "type": "quantitative",
-            "title": "Popularity",
-            "axis": {"tickCount": 8},
-            "scale": {
-                "domain":[0,16500]
-            }
-          },
-          "y": {
-            "field": "score",
-            "type": "quantitative",
-            "title": "Ratings Score",
-            "axis": {"tickCount": 10},
-            "scale": {
-                "domain":[0,10]
-            }
-          },
-          "color": {
-            "field": "AdjustedGenre",
-            "type": "nominal",
-            "scale": {
-              "domain": [
-                "Action", "Adventure", "Comedy", "Drama", "Fantasy", 
-                "Music", "Romance", "Sci-Fi", "Slice of Life", "Sports"
-              ],
-              "range": ["#E69F00", "#0072B2", "#56B4E9", "#D55E00", "#009E73", "#F0E442", "#CC79A7", "#999999"]
-            },
-            "legend": {"title": "Genre"}
-          },
-          "opacity": {
-            "condition": {"param": "genreSelect", "value": 1},
-            "value": 0
-          },
-          "tooltip": [
-            {"field": "title", "type": "nominal", "title": "Anime"},
-            {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
-            {"field": "ranked", "type": "nominal", "format": ",", "title": "Rank"},
-            {"field": "popularity", "type": "quantitative", "format": ",", "title": "Popularity"},
-            {"field": "score", "type": "quantitative", "format": ",", "title": "Ratings (out of 10)"}
-          ]
-        }
-      },
-      {
-        "mark": {
-          "type": "text",
-          "align":"center",
-          "baseline":"middle",
-          "fontSize": 11.5,
-          "dy": 0,
-          "fontStyle": "italic"
-        },
-        "encoding": {
-          "x": {
-            "field": "popularity",
-            "type": "quantitative"
-          },
-          "y": {
-            "field": "score",
-            "type": "quantitative"
-          },
-          "text": {"field": "title", "type": "nominal"},
-          "color": {"value": "black"},
-          "opacity": {
-            "condition": {
-              "test": "datum['title'] =='Bumblebee Hajimete no Chikyuu Seikatsu'||datum['title'] == 'Hametsu no Mars' || datum['title'] == 'Fullmetal Alchemist: Brotherhood' || datum['title'] == 'Ai (ONA)' || datum['title'] == 'Wu Geng Ji 3rd Season'",
-              "value": 1
-            },
-            "value": 0
+          "filter": {
+            "or": [
+              {"param": "genreSelect"},
+              {"field": "AdjustedGenre", "equal": "Action"}
+            ]
           }
         }
+      ],
+      "mark": "circle",
+      "encoding": {
+        "x": {
+          "field": "popularity",
+          "type": "quantitative",
+          "title": "Popularity",
+          "axis": {"tickCount": 8},
+          "scale": {"domain": [0, 16500]}
+        },
+        "y": {
+          "field": "score",
+          "type": "quantitative",
+          "title": "Ratings Score",
+          "axis": {"tickCount": 10},
+          "scale": {"domain": [0, 10]}
+        },
+        "color": {
+          "field": "AdjustedGenre",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Action", "Adventure", "Comedy", "Drama", "Fantasy",
+              "Music", "Romance", "Sci-Fi", "Slice of Life", "Sports"
+            ],
+            "range": ["#E69F00", "#0072B2", "#56B4E9", "#D55E00", "#009E73", "#F0E442", "#CC79A7", "#999999", "#AA4499", "#882255"]
+          },
+          "legend": {
+            "title": "Genre",
+            "titleFont": "Comic Sans MS",
+            "titleFontSize": 14,
+            "labelFont": "Comic Sans MS",
+            "labelFontSize": 12
+          }
+        },
+        "opacity": {
+          "condition": {"param": "genreSelect", "value": 1},
+          "value": 0.1
+        },
+        "tooltip": [
+          {"field": "title", "type": "nominal", "title": "Anime"},
+          {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
+          {"field": "ranked", "type": "nominal", "format": ",", "title": "Rank"},
+          {"field": "popularity", "type": "quantitative", "format": ",", "title": "Popularity"},
+          {"field": "score", "type": "quantitative", "format": ",", "title": "Ratings (out of 10)"}
+        ]
       }
-    ]
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "fontSize": 11.5,
+        "dy": 0,
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "x": {"field": "popularity", "type": "quantitative"},
+        "y": {"field": "score", "type": "quantitative"},
+        "text": {"field": "title", "type": "nominal"},
+        "color": {"value": "black"},
+        "opacity": {
+          "condition": {
+            "test": "datum['title'] =='Bumblebee Hajimete no Chikyuu Seikatsu'||datum['title'] == 'Hametsu no Mars'||datum['title'] == 'Fullmetal Alchemist: Brotherhood'||datum['title'] == 'Ai (ONA)'||datum['title'] == 'Wu Geng Ji 3rd Season'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    }
+  ],
+  "config": {
+    "axis": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS"
+    },
+    "legend": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS"
+    },
+    "text": {"font": "Comic Sans MS"},
+    "header": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS"
+    }
   }
+}
