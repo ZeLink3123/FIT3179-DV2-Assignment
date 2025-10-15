@@ -4,11 +4,12 @@
 
 body {
     margin: 0;
-    height: 100vh;
+    height: auto;
     width: 100vw;
     background-color: lightgray;
     text-align: center;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body h1, h2 {
@@ -31,9 +32,20 @@ body h1, h2 {
     font-size: 1.3rem;
 }
 
+/* Positioning for drop down box of map chart */
 #map-selection {
     z-index: 10;
     position: absolute;
     bottom: 14%;
     right: 80%;
+}
+
+/* css for the textboxes for details regarding the charts */
+.textbox {
+    text-align: justify;
+}
+
+/* Move the drop down box of the trends chart to the left */
+#trends-chart .vega-bindings {
+    justify-content: flex-start !important;
 }

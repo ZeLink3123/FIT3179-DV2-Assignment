@@ -1,16 +1,11 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Daily Anime Search Interest Index in 2025, with month filtering and annotation on the highest point.",
-  "width": 800,
+  "description": "Comparison of daily anime search interest across 2023–2024, aligned by month and day, ignoring year.",
+  "width": 750,
   "height": 400,
 
-  "data": {
-    "url": "data/anime_search_trends_2025.csv",
-    "format": {"type": "csv"}
-  },
-
   "title": {
-    "text": "Daily Anime Search Interest in 2025",
+    "text": "Anime Search Interest Trends (2023–2024)",
     "fontSize": 20,
     "font": "Comic Sans MS",
     "anchor": "start"
@@ -23,53 +18,32 @@
       "bind": {
         "input": "select",
         "options": [
-          "All",
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
+          "All","January","February","March","April","May","June","July",
+          "August","September","October","November","December"
         ],
         "name": "Select Month: "
       }
     }
   ],
 
-  "transform": [
-    {
-      "calculate": "month(toDate(datum.Day))",
-      "as": "monthNumber"
-    },
-    {
-      "filter": "monthSelect == 'All' || (monthSelect == 'January' && datum.monthNumber == 0) || (monthSelect == 'February' && datum.monthNumber == 1) || (monthSelect == 'March' && datum.monthNumber == 2) || (monthSelect == 'April' && datum.monthNumber == 3) || (monthSelect == 'May' && datum.monthNumber == 4) || (monthSelect == 'June' && datum.monthNumber == 5) || (monthSelect == 'July' && datum.monthNumber == 6) || (monthSelect == 'August' && datum.monthNumber == 7) || (monthSelect == 'September' && datum.monthNumber == 8) || (monthSelect == 'October' && datum.monthNumber == 9) || (monthSelect == 'November' && datum.monthNumber == 10) || (monthSelect == 'December' && datum.monthNumber == 11)"
-    }
-  ],
-
   "layer": [
     {
-      "mark": {
-        "type": "line",
-        "color": "#8000ff",
-        "strokeWidth": 2,
-        "point": {"filled": true, "fill": "#4d0099", "size": 30}
-      },
+      "data": {"url": "data/anime-trends-2023.csv"},
+      "transform": [
+        {"calculate": "'2023'", "as": "Year"},
+        {"calculate": "month(toDate(datum.Day))", "as": "monthNumber"},
+        {
+          "filter": "monthSelect == 'All' || (monthSelect == 'January' && datum.monthNumber == 0) || (monthSelect == 'February' && datum.monthNumber == 1) || (monthSelect == 'March' && datum.monthNumber == 2) || (monthSelect == 'April' && datum.monthNumber == 3) || (monthSelect == 'May' && datum.monthNumber == 4) || (monthSelect == 'June' && datum.monthNumber == 5) || (monthSelect == 'July' && datum.monthNumber == 6) || (monthSelect == 'August' && datum.monthNumber == 7) || (monthSelect == 'September' && datum.monthNumber == 8) || (monthSelect == 'October' && datum.monthNumber == 9) || (monthSelect == 'November' && datum.monthNumber == 10) || (monthSelect == 'December' && datum.monthNumber == 11)"
+        }
+      ],
+      "mark": {"type": "line", "strokeWidth": 2},
       "encoding": {
         "x": {
+          "timeUnit": "monthdate",
           "field": "Day",
           "type": "temporal",
-          "title": "Date",
-          "axis": {
-            "format": "%b %d",
-            "labelAngle": 0,
-            "labelFont": "Comic Sans MS"
-          }
+          "title": "Month and Day",
+          "axis": {"format": "%b %d", "labelAngle": 0, "labelFont": "Comic Sans MS"}
         },
         "y": {
           "field": "Anime Search Index",
@@ -78,55 +52,76 @@
           "scale": {"domain": [50, 100]},
           "axis": {"labelFont": "Comic Sans MS"}
         },
+        "color": {
+          "datum": "2023",
+          "title": "Year",
+          "scale": {"domain": ["2023","2024"], "range": ["#99ccff","#ff99cc"]},
+          "legend": {"titleFont":"Comic Sans MS", "titleFontSize": 14, "labelFont":"Comic Sans MS", "labelFontSize": 12,"orient":"left"}
+        },
         "tooltip": [
-          {"field": "Day", "type": "temporal", "title": "Date", "format": "%b %d"},
-          {"field": "Anime Search Index", "type": "quantitative", "title": "Anime Search Popularity (Index)"}
+          {"field":"Day","type":"temporal","title":"Date","format":"%b %d"},
+          {"field":"Anime Search Index","type":"quantitative","title":"Search Popularity (2023)"}
         ]
       }
     },
     {
-      "data": {
-        "values": [
-          {"Day": "2025-03-30", "Anime Search Index": 100}
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 10,
-        "dy": 0,
-        "font": "Comic Sans MS",
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "color": "black"
-      },
+      "data": {"url": "data/anime-trends-2024.csv"},
+      "transform": [
+        {"calculate": "'2024'","as":"Year"},
+        {"calculate":"month(toDate(datum.Day))","as":"monthNumber"},
+        {
+          "filter": "monthSelect == 'All' || (monthSelect == 'January' && datum.monthNumber == 0) || (monthSelect == 'February' && datum.monthNumber == 1) || (monthSelect == 'March' && datum.monthNumber == 2) || (monthSelect == 'April' && datum.monthNumber == 3) || (monthSelect == 'May' && datum.monthNumber == 4) || (monthSelect == 'June' && datum.monthNumber == 5) || (monthSelect == 'July' && datum.monthNumber == 6) || (monthSelect == 'August' && datum.monthNumber == 7) || (monthSelect == 'September' && datum.monthNumber == 8) || (monthSelect == 'October' && datum.monthNumber == 9) || (monthSelect == 'November' && datum.monthNumber == 10) || (monthSelect == 'December' && datum.monthNumber == 11)"
+        }
+      ],
+      "mark": {"type":"line","strokeWidth":2},
       "encoding": {
-        "x": {"field": "Day", "type": "temporal"},
-        "y": {"field": "Anime Search Index", "type": "quantitative"},
-        "text": {"value": "Peak Interest on March 30"}
+        "x":{"timeUnit":"monthdate","field":"Day","type":"temporal"},
+        "y":{"field":"Anime Search Index","type":"quantitative"},
+        "color":{
+          "datum":"2024",
+          "title":"Year",
+          "scale":{"domain":["2023","2024"],"range":["#99ccff","#ff99cc"]}
+        },
+        "tooltip":[
+          {"field":"Day","type":"temporal","title":"Date","format":"%b %d"},
+          {"field":"Anime Search Index","type":"quantitative","title":"Search Popularity (2024)"}
+        ]
       }
     },
     {
-      "data": {
-        "values": [
-          {"Day": "2025-03-30", "Anime Search Index": 100}
-        ]
-      },
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "size": 120,
-        "color": "#ff4dd2"
-      },
-      "encoding": {
-        "x": {"field": "Day", "type": "temporal"},
-        "y": {"field": "Anime Search Index", "type": "quantitative"}
+      "data": {"values":[{"Day":"2023-07-26","Anime Search Index":100}]},
+      "transform":[
+        {"calculate":"month(toDate(datum.Day))","as":"monthNumber"},
+        {
+          "filter":"monthSelect == 'All' || (monthSelect == 'July' && datum.monthNumber == 6)"
+        }
+      ],
+      "mark":{"type":"text","align":"left","dx":10,"dy":-10,"font":"Comic Sans MS","fontSize":14,"fontWeight":"bold","color":"black"},
+      "encoding":{
+        "x":{"field":"Day","type":"temporal","timeUnit":"monthdate"},
+        "y":{"field":"Anime Search Index","type":"quantitative"},
+        "text":{"value":"Peak Interest (Jul 26, 2023)"}
+      }
+    },
+    {
+      "data": {"values":[{"Day":"2024-12-29","Anime Search Index":85}]},
+      "transform":[
+        {"calculate":"month(toDate(datum.Day))","as":"monthNumber"},
+        {
+          "filter":"monthSelect == 'All' || (monthSelect == 'December' && datum.monthNumber == 11)"
+        }
+      ],
+      "mark":{"type":"text","align":"left","dx":-100,"dy":-5,"font":"Comic Sans MS","fontSize":13,"fontWeight":"bold","color":"black"},
+      "encoding":{
+        "x":{"field":"Day","type":"temporal","timeUnit":"monthdate"},
+        "y":{"field":"Anime Search Index","type":"quantitative"},
+        "text":{"value":"Sharp drop after peak (Dec 29, 2024)"}
       }
     }
   ],
 
-  "config": {
-    "background": "white",
-    "font": "Comic Sans MS"
+  "config":{
+    "background":"white",
+    "font":"Comic Sans MS"
   }
 }

@@ -4,23 +4,24 @@ document.addEventListener("DOMContentLoaded", function() {
   vegaEmbed("#world-map", map_spec, {mode: "vega-lite"});
 });
 
-// // Map filter logic
-// document.getElementById("map-selection").addEventListener("change", function() {
-//     const year = this.value;
-//     let map_spec = `js/map_chloropleth_anime_popularity_${year}.vg.json`
-//     vegaEmbed("#world-map", map_spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
-// });
+// Map filter logic
+document.getElementById("map-selection").addEventListener("change", function() {
+    const year = this.value;
+    let map_spec = `js/map_chloropleth_anime_popularity_${year}.vg.json`
+    vegaEmbed("#world-map", map_spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+});
 
-// // Trends graph setup
-// document.addEventListener("DOMContentLoaded", function() {
-//   let trends_spec = "js/line-chart-anime-trends.vg.json";
-//   vegaEmbed("#trends-chart", trends_spec, {mode: "vega-lite"});
-// });
+// Trends graph setup
+document.addEventListener("DOMContentLoaded", function() {
+  let trends_spec = "js/line-chart-anime-trends.vg.json";
+  vegaEmbed("#trends-chart", trends_spec, {mode: "vega-lite"});
+});
 
-// document.addEventListener("DOMContentLoaded", function() {
-//   let trends_spec = "js/anime-genre-popularity.vg.json";
-//   vegaEmbed("#genre-chart", trends_spec, {mode: "vega-lite"});
-// });
+// Genre popularity chart setup
+document.addEventListener("DOMContentLoaded", function() {
+  let trends_spec = "js/anime-genre-popularity.vg.json";
+  vegaEmbed("#genre-chart", trends_spec, {mode: "vega-lite"});
+});
 
 // document.addEventListener("DOMContentLoaded", function() {
 //   let trends_spec = "js/scatter-chart-anime.vg.json";
