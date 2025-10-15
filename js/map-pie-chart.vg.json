@@ -3,10 +3,17 @@
   "data": {
     "url": "data/anime-viewers-data.csv"
   },
-  "hconcat": [
+  "vconcat": [
     {
-      "title": "Average Age of Anime Viewers by Country (Click on a country)",
-      "width": 800,
+      "title": {
+        "text": "Gender Distribution and Average Age of Anime Viewers by Country (Click to Select)",
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "anchor": "start",
+        "color": "black",
+        "font": "Gravitas One"
+      },
+      "width": 700,
       "height": 400,
       "data": {
         "url": "js/ne_110m_admin_0_countries.topojson",
@@ -44,10 +51,7 @@
               "feature": "oceans"
             }
           },
-          "mark": {
-            "type": "geoshape",
-            "fill": "#34acdf"
-          }
+          "mark": {"type": "geoshape", "fill": "#34acdf"}
         },
         {
           "data": {
@@ -57,21 +61,12 @@
               "feature": "ne_110m_graticules_30"
             }
           },
-          "mark": {
-            "type": "geoshape",
-            "fill": null,
-            "stroke": "lightgray"
-          }
+          "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
         },
         {
-          "data": {
-            "url": "data/anime-viewers-data.csv"
-          },
+          "data": {"url": "data/anime-viewers-data.csv"},
           "params": [
-            {
-              "name": "country_click",
-              "select": {"type": "point", "fields": ["Country_Standardized"]}
-            }
+            {"name": "country_click", "select": {"type": "point", "fields": ["Country_Standardized"]}}
           ],
           "transform": [
             {
@@ -80,11 +75,7 @@
             },
             {
               "aggregate": [
-                {
-                  "op": "mean",
-                  "field": "Age",
-                  "as": "avg_age"
-                }
+                {"op": "mean", "field": "Age", "as": "avg_age"}
               ],
               "groupby": ["Country_Standardized"]
             },
@@ -93,121 +84,70 @@
               "from": {
                 "data": {
                   "url": "js/ne_110m_admin_0_countries.topojson",
-                  "format": {
-                    "type": "topojson",
-                    "feature": "ne_110m_admin_0_countries"
-                  }
+                  "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
                 },
                 "key": "properties.NAME",
                 "fields": ["type", "properties", "geometry"]
               }
             },
-            {
-              "filter": "datum.avg_age != null"
-            }
+            {"filter": "datum.avg_age != null"}
           ],
-          "mark": {
-            "type": "geoshape",
-            "stroke": "white",
-            "strokeWidth": 0.5,
-            "cursor": "pointer"
-          },
+          "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.5, "cursor": "pointer"},
           "encoding": {
             "color": {
               "field": "avg_age",
               "type": "quantitative",
-              "scale": {
-                "type": "threshold",
-                "domain": [39.5, 40, 40.5, 41],
-                "range": ["#f2e5ff", "#d9b3ff", "#b366ff", "#8000ff", "#4d0099"]
-              },
-              "legend": {
-                "title": "Average Age"
-              }
+              "scale": {"type": "threshold", "domain": [39.5, 40, 40.5, 41], "range": ["#f2e5ff", "#d9b3ff", "#b366ff", "#8000ff", "#4d0099"]},
+              "legend": {"title": "Average Age"}
             },
-            "opacity": {
-              "condition": {
-                "param": "country_click",
-                "value": 1
-              },
-              "value": 0.1
-            },
-            "strokeWidth": {
-              "condition": {
-                "param": "country_click",
-                "value": 2,
-                "empty": false
-              },
-              "value": 0.1
-            },
+            "opacity": {"condition": {"param": "country_click", "value": 1}, "value": 0.1},
+            "strokeWidth": {"condition": {"param": "country_click", "value": 2, "empty": false}, "value": 0.1},
             "tooltip": [
               {"field": "Country_Standardized", "type": "nominal", "title": "Country"},
               {"field": "avg_age", "type": "quantitative", "title": "Average Age", "format": ".1f"}
             ]
           }
+        },
+        {
+          "data": {
+            "values": [
+              {"name": "France", "label": "Lowest Average Viewer Age (France)", "longitude": 12.2137, "latitude": 46.2276},
+              {"name": "Spain", "label": "Highest Average Viewer Age (Spain)", "longitude": 5.7492, "latitude": 30.4637}
+            ]
+          },
+          "projection": {"type": "equalEarth"},
+          "mark": {"type": "text", "align": "center", "baseline": "bottom", "fontSize": 12, "fontWeight": "bold", "dx": 100, "dy": -5, "color": "black"},
+          "encoding": {
+            "longitude": {"field": "longitude", "type": "quantitative"},
+            "latitude": {"field": "latitude", "type": "quantitative"},
+            "text": {"field": "label", "type": "nominal"}
+          }
         }
       ]
     },
     {
-      "title": "Gender Distribution of Anime Viewers by Country",
-      "width": 800,
+      "width": 700,
       "height": 400,
-      "data": {
-        "url": "data/anime-viewers-data.csv"
-      },
+      "data": {"url": "data/anime-viewers-data.csv"},
       "transform": [
         {
           "calculate": "datum.Country == 'USA' ? 'United States of America' : datum.Country == 'UK' ? 'United Kingdom' : datum.Country",
           "as": "Country_Standardized"
         },
-        {
-          "filter": {
-            "param": "country_click"
-          }
-        },
-        {
-          "aggregate": [
-            {
-              "op": "count",
-              "as": "count"
-            }
-          ],
-          "groupby": ["Gender"]
-        },
-        {
-          "window": [
-            {
-              "op": "sum",
-              "field": "count",
-              "as": "total"
-            }
-          ],
-          "frame": [null, null]
-        },
-        {
-          "calculate": "datum.count / datum.total * 100",
-          "as": "percentage"
-        }
+        {"filter": {"param": "country_click"}},
+        {"filter": "datum.Gender == 'Male' || datum.Gender == 'Female'"},
+        {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["Gender"]},
+        {"window": [{"op": "sum", "field": "count", "as": "total"}], "frame": [null, null]},
+        {"calculate": "datum.count / datum.total * 100", "as": "percentage"}
       ],
-      "mark": {
-        "type": "arc",
-        "innerRadius": 50
-      },
+      "mark": {"type": "arc", "innerRadius": 50},
       "encoding": {
-        "theta": {
-          "field": "count",
-          "type": "quantitative"
-        },
+        "theta": {"field": "count", "type": "quantitative"},
         "color": {
           "field": "Gender",
           "type": "nominal",
-          "scale": {
-            "domain": ["Male", "Female", "Other"],
-            "range": ["#4A90E2", "#E24A90", "#9B59B6"]
-          },
-          "legend": {
-            "title": "Gender"
-          }
+          "scale": {"domain": ["Male", "Female"], "range": ["#7FADDC", "#FFBED6"]},
+          "legend": {"title": "Gender", "orient": "right", "offset": -70, "titleFontSize": 14, "labelFontSize": 12}
         },
         "tooltip": [
           {"field": "Gender", "type": "nominal", "title": "Gender"},
@@ -218,8 +158,10 @@
     }
   ],
   "config": {
-    "view": {
-      "stroke": null
-    }
+    "view": {"stroke": null},
+    "axis": {"labelFont": "Comic Sans MS", "titleFont": "Comic Sans MS"},
+    "legend": {"labelFont": "Comic Sans MS", "titleFont": "Comic Sans MS"},
+    "text": {"font": "Comic Sans MS"},
+    "header": {"labelFont": "Comic Sans MS", "titleFont": "Comic Sans MS"}
   }
 }

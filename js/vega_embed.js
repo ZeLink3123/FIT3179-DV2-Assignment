@@ -29,10 +29,11 @@ document.addEventListener("DOMContentLoaded", function() {
   vegaEmbed("#genre-rating-chart", trends_spec, {mode: "vega-lite"});
 });
 
-// document.addEventListener("DOMContentLoaded", function() {
-//   let trends_spec = "js/map-pie-chart.vg.json";
-//   vegaEmbed("#age-gender-charts", trends_spec, {mode: "vega-lite"});
-// });
+// Age and Gender distribution pie charts setup
+document.addEventListener("DOMContentLoaded", function() {
+  let trends_spec = "js/map-pie-chart.vg.json";
+  vegaEmbed("#age-gender-charts", trends_spec, {mode: "vega-lite"});
+});
 
 // document.addEventListener("DOMContentLoaded", function() {
 //   let trends_spec = "js/au-map-chloropleth-anime-popularity-2025.vg.json";
