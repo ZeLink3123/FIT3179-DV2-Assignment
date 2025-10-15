@@ -98,7 +98,7 @@
               "field": "avg_age",
               "type": "quantitative",
               "scale": {"type": "threshold", "domain": [39.5, 40, 40.5, 41], "range": ["#f2e5ff", "#d9b3ff", "#b366ff", "#8000ff", "#4d0099"]},
-              "legend": {"title": "Average Age"}
+              "legend": {"title": "Average Age", "orient": "right", "offset": 40, "titleFontSize": 14, "labelFontSize": 12}
             },
             "opacity": {"condition": {"param": "country_click", "value": 1}, "value": 0.1},
             "strokeWidth": {"condition": {"param": "country_click", "value": 2, "empty": false}, "value": 0.1},
