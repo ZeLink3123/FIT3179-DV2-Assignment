@@ -6,13 +6,34 @@ body {
     margin: 0;
     height: 100vh;
     width: 100vw;
+    background-color: lightgray;
+    text-align: center;
+    overflow-x: hidden;
 }
 
-body h1 {
-    margin: 20px;
+body h1, h2 {
+    font-size: 2rem;
     font-family: "Gravitas One", serif;
 }
 
-.container {
-    margin: 20px;
+/* CSS for general boxes used to contain components */
+.box {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1%;
+    margin: 20px auto;
+    max-width: 85%;
+    height: auto;
+}
+
+.box p {
+    font-size: 1.3rem;
+}
+
+#map-selection {
+    z-index: 10;
+    position: absolute;
+    bottom: 14%;
+    right: 80%;
 }

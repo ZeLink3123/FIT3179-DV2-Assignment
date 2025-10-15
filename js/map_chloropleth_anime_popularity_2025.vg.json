@@ -8,13 +8,13 @@
         "color": "black",
         "font": "Gravitas One"
     },
-    "width": 800,
+    "width": 850,
     "height": 400,
     "params": [
         {
             "name": "minPerCapita",
             "value": 0,
-            "bind": {"input": "range", "min": 0, "max": 600000, "step": 500, "name": "Min Per Capita Searches: "}
+            "bind": {"input": "range", "min": 0, "max": 550000, "step": 500, "name": "Min Per Capita Searches: "}
         }
     ],
     "data": {
@@ -78,7 +78,7 @@
                 "as": "estimated_per_capita_searches_2025"
             },
             {
-                "filter": "datum.estimated_per_capita_searches_2025 > 0"
+                "filter": "datum.estimated_per_capita_searches_2025 >= 0"
             },
             {
                 "filter": "datum.estimated_per_capita_searches_2025 >= minPerCapita"
@@ -88,7 +88,7 @@
         "encoding": {
           "color": {
             "field": "estimated_per_capita_searches_2025",
-            "title":"Anime Searches Per Capita (2025)",
+            "title":"Anime Searches Per Capita",
             "type": "quantitative",
             "scale": {
                 "type": "threshold",
