@@ -23,10 +23,11 @@ document.addEventListener("DOMContentLoaded", function() {
   vegaEmbed("#genre-chart", trends_spec, {mode: "vega-lite"});
 });
 
-// document.addEventListener("DOMContentLoaded", function() {
-//   let trends_spec = "js/scatter-chart-anime.vg.json";
-//   vegaEmbed("#genre-rating-chart", trends_spec, {mode: "vega-lite"});
-// });
+// Genre vs Rating scatter plot setup
+document.addEventListener("DOMContentLoaded", function() {
+  let trends_spec = "js/scatter-chart-anime.vg.json";
+  vegaEmbed("#genre-rating-chart", trends_spec, {mode: "vega-lite"});
+});
 
 // document.addEventListener("DOMContentLoaded", function() {
 //   let trends_spec = "js/map-pie-chart.vg.json";
