@@ -8,7 +8,7 @@ const observer = new IntersectionObserver((entries) => {
     }
     });
 }, {
-    threshold: 0.1 // Trigger when 10% of element is visible
+    threshold: 0.15
 });
 
 // Observe all elements with fade-in class
