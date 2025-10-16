@@ -1,5 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": null,
   "title": {
     "text": "Anime Popularity: Ratings vs Popularity",
     "fontSize": 24,

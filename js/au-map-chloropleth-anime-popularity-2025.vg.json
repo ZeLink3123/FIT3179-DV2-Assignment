@@ -1,5 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "background": null,
   "title": {
     "text": "Australia's 2025 Estimated Anime Searches Per Capita",
     "fontSize": 24,
