@@ -1,0 +1,64 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Australia's Top Animes",
+    "fontSize": 22,
+    "fontWeight": "bold",
+    "anchor": "start",
+    "color": "black",
+    "font": "Gravitas One"
+  },
+  "width": 400,
+  "height": 300,
+  "data": {
+    "url": "data/watched-anime-dataset.csv"
+  },
+  "transform": [
+    {"sort": [{"field": "Ratings", "order": "descending"}]},
+    {"window": [{"op": "rank", "as": "rank"}]},
+    {"filter": "datum.rank <= 6"},
+    {"filter": "datum.Ratings != ''"}
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#7b5cff",
+        "strokeWidth": 4
+      },
+      "encoding": {
+        "x": {"field": "Ratings", "type": "quantitative", "title": "Rating"},
+        "x2": {"value": 0},
+        "y": {"field": "Anime Name", "type": "nominal", "sort": "-x", "title": "Anime"}
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 300,
+        "color": "#7b5cff"
+      },
+      "encoding": {
+        "x": {"field": "Ratings", "type": "quantitative"},
+        "y": {"field": "Anime Name", "type": "nominal", "sort": "-x"},
+        "tooltip": [
+          {"field": "Anime Name", "title": "Anime"},
+          {"field": "Ratings", "title": "Rating"},
+          {"field": "Genre", "title": "Genre"},
+          {"field": "Animation Studio Name", "title": "Studio"},
+          {"field": "Release Year", "title": "Release Year"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "axis": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS",
+        "titleFontSize": 16,
+        "labelFontSize": 12
+    },
+    "title": {"font": "Comic Sans MS"},
+    "view": {"stroke": "transparent"}
+  }
+}

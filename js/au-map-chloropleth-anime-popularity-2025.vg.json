@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Anime Search Interest Across Australia (2025)",
+    "text": "Australia's 2025 Estimated Anime Searches Per Capita",
     "fontSize": 24,
     "fontWeight": "bold",
     "anchor": "start",
     "color": "black",
     "font": "Gravitas One"
   },
-  "width": 800,
+  "width": 650,
   "height": 600,
   "params": [
     {
@@ -39,7 +39,7 @@
     {
       "transform": [
         {
-          "calculate": "datum.properties.name + ' has search interest index of: 0'",
+          "calculate": "datum.properties.name + ' has no data available'",
           "as": "note"
         }
       ],
@@ -83,17 +83,21 @@
       },
       "encoding": {
         "color": {
-          "field": "Anime: (2025)",
-          "title": "Anime Search Interest Index (2025)",
+          "field": "estimated_per_capita_searches_2025",
+          "title": "Estimated Anime Searches Per Capita",
           "type": "quantitative",
           "scale": {
             "type": "threshold",
-            "domain": [70, 80, 90, 95],
+            "domain": [10, 20, 30, 55],
             "range": ["#f2e5ff", "#d9b3ff", "#b366ff", "#8000ff", "#4d0099"]
           },
           "legend": {
             "orient": "right",
-            "offset": 50
+            "offset": 50,
+            "titleFont": "Comic Sans MS",
+            "labelFont": "Comic Sans MS",
+            "titleFontSize": 14,
+            "labelFontSize": 12
           }
         },
         "tooltip": [
@@ -139,16 +143,16 @@
         "values": [
           {
             "state": "Western Australia",
-            "longitude": 120,
+            "longitude": 150,
             "latitude": -26,
-            "note": "WA: Highest Search Interest"
+            "note": "NT: Highest Estimated Searches Per Capita"
           }
         ]
       },
       "mark": {
         "type": "rect",
         "fill": "rgba(255, 255, 255, 0.7)",
-        "width": 190,
+        "width": 275,
         "height": 20
       },
       "encoding": {
@@ -162,9 +166,9 @@
         "values": [
           {
             "state": "Western Australia",
-            "longitude": 120,
+            "longitude": 152.2,
             "latitude": -26,
-            "note": "WA: Highest Search Interest"
+            "note": "NT: Highest Estimated Searches Per Capita"
           }
         ]
       },
@@ -174,7 +178,7 @@
         "color": "black",
         "fontWeight": "bold",
         "dy": -100,
-        "dx": -100
+        "dx": -130
       },
       "encoding": {
         "longitude": {"field": "longitude"},

@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Daily Anime Search Interest Index in 2025, with month filtering and annotation on the highest point.",
-  "width": 800,
+  "width": 880,
   "height": 400,
 
   "data": {
