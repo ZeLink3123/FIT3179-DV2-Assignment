@@ -73,3 +73,19 @@ body h1, h2 {
 .fade-in:nth-child(3) { transition-delay: 0.3s; }
 .fade-in:nth-child(4) { transition-delay: 0.4s; }
 .fade-in:nth-child(5) { transition-delay: 0.5s; }
+
+.image {
+    display: block;
+    width: auto;
+}
+
+.footer {
+    background: linear-gradient(to bottom, #D5B1FF, #B388FF);
+    color: #333;
+    text-align: center;
+    padding: 9px;
+}
+
+.footer p {
+    font-size: 0.9rem;
+}
