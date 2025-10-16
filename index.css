@@ -19,7 +19,7 @@ body h1, h2 {
 
 /* CSS for general boxes used to contain components */
 .box {
-    background-color: white;
+    background: linear-gradient(to bottom, white 60%, #FFBED6 100%);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1%;
