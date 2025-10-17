@@ -124,6 +124,7 @@
 
   "config":{
     "background":"white",
-    "font":"Comic Sans MS"
+    "font":"Comic Sans MS",
+    "axis": {"gridColor": "white"}
   }
 }

@@ -138,6 +138,7 @@
   "config": {
     "background": "white",
     "font": "Comic Sans MS",
-    "padding": {"top": 30}
+    "padding": {"top": 30},
+    "axis": {"gridColor": "white"}
   }
 }

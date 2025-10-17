@@ -148,7 +148,7 @@
         "color": {
           "field": "Gender",
           "type": "nominal",
-          "scale": {"domain": ["Male", "Female"], "range": ["#7FADDC", "#FFBED6"]},
+          "scale": {"domain": ["Male", "Female"], "range": ["#7FADDC", "#FF746C"]},
           "legend": {"title": "Gender", "orient": "right", "offset": -70, "titleFontSize": 14, "labelFontSize": 12}
         },
         "tooltip": [

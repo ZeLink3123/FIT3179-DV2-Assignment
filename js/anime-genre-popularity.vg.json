@@ -253,7 +253,8 @@
   "config": {
     "axis": {
       "labelFont": "Comic Sans MS",
-      "titleFont": "Comic Sans MS"
+      "titleFont": "Comic Sans MS",
+      "gridColor": "white"
     },
     "legend": {
       "labelFont": "Comic Sans MS",
