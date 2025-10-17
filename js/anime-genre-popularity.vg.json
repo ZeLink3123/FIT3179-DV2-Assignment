@@ -9,13 +9,12 @@
       "hconcat": [
         {
           "title": {
-              "text": "Top 30 Anime and Their Genres",
-              "fontSize": 24,
-              "fontWeight": "bold",
-              "anchor": "start",
-              "color": "black",
-              "font": "Gravitas One",
-              "offset": 20
+            "text": "Top 30 Anime and Their Genres",
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "anchor": "middle",
+            "color": "black",
+            "font": "Gravitas One"
           },
           "width": 600,
           "height": {"step": 15},
@@ -66,7 +65,7 @@
             "y": {
               "field": "AdjustedGenre",
               "type": "nominal",
-              "title": "Genre"
+              "title": null
             },
             "color": {
               "condition": {
@@ -84,15 +83,14 @@
         },
         {
           "title": {
-              "text": "Top 10 Anime Genres",
-              "fontSize": 24,
-              "fontWeight": "bold",
-              "anchor": "start",
-              "color": "black",
-              "font": "Gravitas One",
-              "offset": 20
+            "text": "Top 10 Anime Genres",
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "anchor": "middle",
+            "color": "black",
+            "font": "Gravitas One"
           },
-          "width": 710,
+          "width": 600,
           "height": 500,
           "transform": [
             {
@@ -155,7 +153,7 @@
               }
             },
             {
-              "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 12, "fontStyle": "italic", "dy": -60, "dx": -200},
+              "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 12, "fontStyle": "italic", "dy": -60, "dx": -180},
               "encoding": {
                 "x": {"aggregate": "max", "field": "Percentage", "type": "quantitative"},
                 "text": {"value": "The Comedy genre dominates with the highest percentage of all existing anime,"},
@@ -164,7 +162,7 @@
               "transform": [{"filter": {"field": "AdjustedGenre", "oneOf": ["Comedy"]}}]
             },
             {
-              "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 12, "fontStyle": "italic", "dy": -40, "dx": -200},
+              "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 12, "fontStyle": "italic", "dy": -40, "dx": -180},
               "encoding": {
                 "x": {"aggregate": "max", "field": "Percentage", "type": "quantitative"},
                 "text": {"value": "showcasing its widespread popularity across the medium."},
@@ -178,15 +176,14 @@
     },
     {
       "title": {
-          "text": "Top 10 Highest Rated Anime",
-          "fontSize": 24,
-          "fontWeight": "bold",
-          "anchor": "start",
-          "color": "black",
-          "font": "Gravitas One",
-          "offset": 20
+        "text": "Top 10 Highest Rated Anime",
+        "fontSize": 20,
+        "fontWeight": "bold",
+        "anchor": "middle",
+        "color": "black",
+        "font": "Gravitas One"
       },
-      "width": 1400,
+      "width": 1300,
       "height": 200,
       "data": {"url": "data/anime-genres.csv"},
       "transform": [
@@ -208,7 +205,12 @@
           "encoding": {
             "x": {"field": "max_score", "type": "quantitative", "title": "Rating Score", "scale": {"domain": [8.9, 9.25]}},
             "x2": {"datum": 8.9},
-            "y": {"field": "title", "type": "nominal", "title": "Anime Title", "sort": {"field": "max_score", "order": "descending"}},
+            "y": {
+              "field": "title",
+              "type": "nominal",
+              "title": null,
+              "sort": {"field": "max_score", "order": "descending"}
+            },
             "tooltip": [
               {"field": "title", "type": "nominal", "title": "Anime Title"},
               {"field": "max_score", "type": "quantitative", "title": "Score", "format": ".2f"}
@@ -249,20 +251,20 @@
     }
   ],
   "config": {
-        "axis": {
-            "labelFont": "Comic Sans MS",
-            "titleFont": "Comic Sans MS"
-        },
-        "legend": {
-            "labelFont": "Comic Sans MS",
-            "titleFont": "Comic Sans MS"
-        },
-        "text": {
-            "font": "Comic Sans MS"
-        },
-        "header": {
-            "labelFont": "Comic Sans MS",
-            "titleFont": "Comic Sans MS"
-        }
+    "axis": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS"
+    },
+    "legend": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS"
+    },
+    "text": {
+      "font": "Comic Sans MS"
+    },
+    "header": {
+      "labelFont": "Comic Sans MS",
+      "titleFont": "Comic Sans MS"
     }
+  }
 }
