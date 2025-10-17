@@ -18,6 +18,10 @@ body h1, h2 {
     font-family: "Gravitas One", serif;
 }
 
+.chart {
+    width: 100%;
+}
+
 /* CSS for general boxes used to contain components */
 .box {
     background: linear-gradient(to bottom, #FFE6EF, #FFBED6 100%);

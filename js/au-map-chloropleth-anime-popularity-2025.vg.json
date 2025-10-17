@@ -10,7 +10,7 @@
     "font": "Gravitas One",
     "offset": 20
   },
-  "width": 650,
+  "width": "container",
   "height": 550,
   "params": [
     {

@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "background": null,
   "description": "Comparison of daily anime search interest across 2023–2024, aligned by month and day, ignoring year.",
-  "width": 750,
+  "width": "container",
   "height": 400,
 
   "title": {
