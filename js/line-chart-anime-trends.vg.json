@@ -125,6 +125,7 @@
   "config":{
     "background":"white",
     "font":"Comic Sans MS",
-    "axis": {"gridColor": "white"}
+    "axis": {"gridColor": "white"},
+    "padding": {"left": 30}
   }
 }

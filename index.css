@@ -41,14 +41,6 @@ body h1, h2 {
     font-size: 1.3rem;
 }
 
-/* Positioning for drop down box of map chart */
-#map-selection {
-    z-index: 10;
-    position: absolute;
-    bottom: 4%;
-    right: 80%;
-}
-
 /* css for the textboxes for details regarding the charts */
 .textbox {
     text-align: justify;
