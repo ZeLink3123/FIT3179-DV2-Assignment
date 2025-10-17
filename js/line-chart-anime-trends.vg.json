@@ -9,7 +9,8 @@
     "text": "Anime Search Interest Trends (2023–2024)",
     "fontSize": 24,
     "font": "Gravitas One",
-    "anchor": "start"
+    "anchor": "start",
+    "offset": 20
   },
 
   "params": [

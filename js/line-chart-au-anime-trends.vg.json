@@ -3,7 +3,7 @@
   "background": null,
   "description": "Daily Anime Search Interest Index in 2025, with month filtering and annotation on the highest point.",
   "width": 880,
-  "height": 400,
+  "height": 300,
 
   "data": {
     "url": "data/au-anime-trends-2025.csv",
@@ -16,8 +16,9 @@
   "title": {
     "text": "Daily Australia Anime Search Interest in 2025",
     "fontSize": 20,
-    "font": "Comic Sans MS",
-    "anchor": "start"
+    "font": "Gravitas One",
+    "anchor": "start",
+    "offset": 20
   },
 
   "params": [
@@ -136,6 +137,7 @@
 
   "config": {
     "background": "white",
-    "font": "Comic Sans MS"
+    "font": "Comic Sans MS",
+    "padding": {"top": 30}
   }
 }
