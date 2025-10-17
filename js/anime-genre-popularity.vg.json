@@ -72,7 +72,7 @@
                 "test": "datum.isTop10",
                 "value": "#6a0dad"
               },
-              "value": "#D5B1FF"
+              "value": "#7b5cff"
             },
             "tooltip": [
               {"field": "title", "type": "nominal", "title": "Anime"},
@@ -130,7 +130,7 @@
                 "x2": {"datum": 0},
                 "color": {
                   "condition": {"test": "datum.AdjustedGenre === 'Comedy'", "value": "#ff7f0e"},
-                  "value": "#D5B1FF"
+                  "value": "#7b5cff"
                 },
                 "tooltip": [
                   {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
@@ -144,7 +144,7 @@
               "encoding": {
                 "y": {"field": "AdjustedGenre", "type": "nominal", "sort": {"field": "Percentage", "order": "descending"}},
                 "x": {"field": "Percentage", "type": "quantitative"},
-                "color": {"condition": {"test": "datum.AdjustedGenre === 'Comedy'", "value": "#ff7f0e"}, "value": "#D5B1FF"},
+                "color": {"condition": {"test": "datum.AdjustedGenre === 'Comedy'", "value": "#ff7f0e"}, "value": "#7b5cff"},
                 "tooltip": [
                   {"field": "AdjustedGenre", "type": "nominal", "title": "Genre"},
                   {"field": "GenreCount", "type": "quantitative", "title": "Number of Animes"},
@@ -201,7 +201,7 @@
       ],
       "layer": [
         {
-          "mark": {"type": "bar", "color": "#D5B1FF"},
+          "mark": {"type": "bar", "color": "#7b5cff"},
           "encoding": {
             "x": {"field": "max_score", "type": "quantitative", "title": "Rating Score", "scale": {"domain": [8.9, 9.25]}},
             "x2": {"datum": 8.9},
