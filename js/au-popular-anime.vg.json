@@ -11,14 +11,14 @@
     "offset": 20
   },
   "width": 400,
-  "height": 300,
+  "height": 600,
   "data": {
     "url": "data/watched-anime-dataset.csv"
   },
   "transform": [
     {"sort": [{"field": "Ratings", "order": "descending"}]},
     {"window": [{"op": "rank", "as": "rank"}]},
-    {"filter": "datum.rank <= 6"},
+    {"filter": "datum.rank <= 12"},
     {"filter": "datum.Ratings != ''"}
   ],
   "layer": [
