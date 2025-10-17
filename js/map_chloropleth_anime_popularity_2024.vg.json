@@ -28,7 +28,7 @@
       {
         "transform": [
           {
-            "calculate": "datum.properties.NAME + 'has search interest index of: 0'",
+            "calculate": "datum.properties.NAME + 'has no data available'",
             "as": "note"
           }
         ],
@@ -80,7 +80,7 @@
                 "as": "estimated_per_capita_searches_2024"
             },
             {
-                "filter": "datum.estimated_per_capita_searches_2024 > 0"
+                "filter": "datum.estimated_per_capita_searches_2024 >= 0"
             },
             {
                 "filter": "datum.estimated_per_capita_searches_2024 >= minPerCapita"

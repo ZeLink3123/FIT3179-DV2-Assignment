@@ -28,7 +28,7 @@
       {
         "transform": [
           {
-            "calculate": "datum.properties.NAME + 'has search interest index of: 0'",
+            "calculate": "datum.properties.NAME + 'has no data available'",
             "as": "note"
           }
         ],
