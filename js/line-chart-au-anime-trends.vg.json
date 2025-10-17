@@ -1,10 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "background": null,
-  "description": "Daily Anime Search Interest Index in 2025, with month filtering and annotation on the highest point.",
-  "width": "container",
-  "height": 300,
-
+  "description": "Daily Anime Search Interest Index in 2025, with brush interaction for filtering.",
   "data": {
     "url": "data/au-anime-trends-2025.csv",
     "format": {
@@ -12,53 +9,17 @@
       "parse": {"Day": "date:'%Y-%m-%d'"}
     }
   },
-
-  "title": {
-    "text": "Daily Australia Anime Search Interest in 2025",
-    "fontSize": 20,
-    "font": "Gravitas One",
-    "anchor": "start",
-    "offset": 20
-  },
-
-  "params": [
+  "vconcat": [
     {
-      "name": "monthSelect",
-      "value": "All",
-      "bind": {
-        "input": "select",
-        "options": [
-          "All",
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
-        ],
-        "name": "Select Month: "
-      }
-    }
-  ],
-
-  "transform": [
-    {
-      "calculate": "month(datum.Day)",
-      "as": "monthNumber"
-    },
-    {
-      "filter": "monthSelect == 'All' || (monthSelect == 'January' && datum.monthNumber == 0) || (monthSelect == 'February' && datum.monthNumber == 1) || (monthSelect == 'March' && datum.monthNumber == 2) || (monthSelect == 'April' && datum.monthNumber == 3) || (monthSelect == 'May' && datum.monthNumber == 4) || (monthSelect == 'June' && datum.monthNumber == 5) || (monthSelect == 'July' && datum.monthNumber == 6) || (monthSelect == 'August' && datum.monthNumber == 7) || (monthSelect == 'September' && datum.monthNumber == 8) || (monthSelect == 'October' && datum.monthNumber == 9) || (monthSelect == 'November' && datum.monthNumber == 10) || (monthSelect == 'December' && datum.monthNumber == 11)"
-    }
-  ],
-
-  "layer": [
-    {
+      "width": "container",
+      "height": 250,
+      "title": {
+        "text": "Daily Australia Anime Search Interest in 2025",
+        "fontSize": 20,
+        "font": "Gravitas One",
+        "anchor": "start",
+        "offset": 20
+      },
       "mark": {
         "type": "line",
         "color": "#8000ff",
@@ -70,6 +31,7 @@
           "field": "Day",
           "type": "temporal",
           "title": "Date",
+          "scale": {"domain": {"param": "brush"}},
           "axis": {
             "format": "%b %d",
             "labelAngle": 0,
@@ -90,51 +52,35 @@
       }
     },
     {
-      "data": {
-        "values": [
-          {"Day": "2025-02-02", "Anime Search Index": 85}
-        ]
-      },
+      "width": "container",
+      "height": 60,
       "mark": {
-        "type": "text",
-        "align": "center",
-        "dx": 60,
-        "dy": -140,
-        "font": "Comic Sans MS",
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "color": "black"
+        "type": "area",
+        "color": "#b366ff",
+        "strokeWidth": 1
       },
+      "params": [
+        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
+      ],
       "encoding": {
-        "x": {"field": "Day", "type": "temporal"},
-        "y": {"field": "Anime Search Index", "type": "quantitative"},
-        "text": {"value": "Rapid Drop: 100 → 73"}
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {"Day": "2025-02-02", "Anime Search Index": 85}
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "dx": 135,
-        "dy": -125,
-        "font": "Comic Sans MS",
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "color": "black"
-      },
-      "encoding": {
-        "x": {"field": "Day", "type": "temporal"},
-        "y": {"field": "Anime Search Index", "type": "quantitative"},
-        "text": {"value": "Interest in Anime fell sharply after January"}
+        "x": {
+          "field": "Day",
+          "type": "temporal",
+          "title": "Brush to filter date range",
+          "axis": {
+            "format": "%b %d",
+            "labelFont": "Comic Sans MS"
+          }
+        },
+        "y": {
+          "field": "Anime Search Index",
+          "type": "quantitative",
+          "title": null,
+          "axis": {"tickCount": 3, "grid": false, "labelFont": "Comic Sans MS"}
+        }
       }
     }
   ],
-
   "config": {
     "background": "white",
     "font": "Comic Sans MS",
